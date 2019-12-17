@@ -1,2 +1,0 @@
-# textGameAdventureJS
-Created with CodeSandbox
