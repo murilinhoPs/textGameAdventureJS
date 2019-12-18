@@ -1,60 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 
 import styles from "./styles.css";
 
-const textNodes = [
-  {
-    id: 1,
-    text:
-      "Você acorda num lugar estranho e vê um fantasma com uma jarra na mão te encarando.",
-    options: [
-      {
-        text: "Você vai até ele e pega a jarra.",
-        //setState: {catchJar: true},
-        netxText: 2
-      },
-      {
-        text: "Você fica na cama e se esconde.",
-        netxText: 2
-      }
-    ]
-  },
-  {
-    id: 2,
-    text: "Parte2............"
-  }
-];
+import textNodes from "../../services/textNodesApi";
 
-const showTextNode = nodeIndex => {
-  const textNode = textNodes.find(textNode => textNode.id === nodeIndex);
+const ShowTextNode = () => {
+  const textNode = textNodes.find(textNode => textNode.id === 1);
 
-  return <h1> {textNode.text} </h1>;
+  return <h2> {textNode.text} </h2>;
 };
 
-let buttons = () => {
+const Escolhas = ({ nodeIndex }) => {
+  // Pega o index que eu quero(vai ser armazenado no state)
+  const textChoice = textNodes.find(textNodes => textNodes.id == nodeIndex);
 
+  //a partir do index que eu quero, passo por todas as opções do texNode
+  //e pego as opções dele e mostro em botoes
   return (
     <div className="Grid">
-    {textNodes.map((index) =>(
-        <button> {index.id} </button>
-    ))}
+      {textChoice.options.map(optIndex => (
+        <button>
+          {optIndex.text}
+        </button>
+      ))}
     </div>
   );
 };
 
-const Game = () => {
-  const [state, setState] = useState({});
+const selectOption = option => console.log(option);
 
-  //const textNode = textNodes.find(textNode => textNode.id === 1);  {showTextNode(1)}
+function Game() {
+  const [mystate, mySetState] = useState({});
 
   return (
     <div className="Game">
       <div className="Container">
-        {showTextNode(1)}
-        {buttons()}
+        <ShowTextNode />
+        <Escolhas nodeIndex={1} />
       </div>
     </div>
   );
-};
+}
 
 export default Game;
