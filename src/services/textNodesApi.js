@@ -61,10 +61,14 @@ const textNodes = [
       options: [
         {
           text: "Obrigado.",
-          nextText: 1
+          nextText: 3
         },
         {
           text: "Por jogar!",
+          nextText: 3
+        },
+        {
+          text: "Resetar!",
           nextText: 1
         }
       ]
