@@ -5,7 +5,10 @@ import styles from "./styles.css";
 import textNodes from "../../services/textNodesApi";
 
 const Game = () => {
-  const [state, setState] = useState({ nextText: 1, choiceState: {} });
+  const [state, setState] = useState({
+    nextText: 1,
+    choiceState: { jar: true }
+  });
 
   const ShowTextNode = ({ nodeIndex }) => {
     const textNode = textNodes.find(textNode => textNode.id === nodeIndex);
@@ -36,7 +39,9 @@ const Game = () => {
     );
   };
   function showOption(option) {
-    return option.requiredState == null || option.requiredState(state);
+    return (
+      option.requiredState == null || option.requiredState(state.choiceState)
+    );
   }
 
   function selectOption(option) {
