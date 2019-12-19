@@ -5,7 +5,7 @@ import styles from "./styles.css";
 import textNodes from "../../services/textNodesApi";
 
 const Game = () => {
-  const [state, setState] = useState({ nextText: 1 });
+  const [state, setState] = useState({ nextText: 1, choiceState: {} });
 
   const ShowTextNode = ({ nodeIndex }) => {
     const textNode = textNodes.find(textNode => textNode.id === nodeIndex);
@@ -21,27 +21,30 @@ const Game = () => {
 
     //a partir do index que eu quero, passo por todas as opções do texNode
     //e pego as opções dele e mostro em botoes
-    if (showOption(textChoice.options)) {
-      return (
-        <div className="Grid">
-          {textChoice.options.map(optIndex => (
-            <button onClick={() => selectOption(optIndex)}>
-              {optIndex.text}
-            </button>
-          ))}
-        </div>
-      );
-    }
+    return (
+      <div className="Grid">
+        {console.log(state)}
+        {textChoice.options.map(
+          optIndex =>
+            showOption(optIndex) && (
+              <button onClick={() => selectOption(optIndex)}>
+                {optIndex.text}
+              </button>
+            )
+        )}
+      </div>
+    );
   };
   function showOption(option) {
     return option.requiredState == null || option.requiredState(state);
   }
 
   function selectOption(option) {
-  
-    setState({nextText: option.nextText})
+    setState({ nextText: option.nextText, choiceState: option.setState });
 
-    console.log(state+ "  "+ option.nextText);
+    console.log(option.setState);
+
+    //console.log(state+ "  "+ option.nextText);
   }
 
   return (
